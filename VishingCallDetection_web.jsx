@@ -14,12 +14,11 @@ const C = {
   texto:       "#555555",
 };
 
-// ── URL del backend (reemplazar con la URL real de Render) ───────────────────
-const BACKEND_URL = "https://tu-servidor.onrender.com";
+// ── URL del backend (reemplazar con la URL real de Render) 
+const BACKEND_URL = "https://url-de-render.onrender.com";
 
-// ══════════════════════════════════════════════════════════════════════════════
+
 // COMPONENTE: Waveform animado
-// ══════════════════════════════════════════════════════════════════════════════
 function Waveform({ activo }) {
   const bars = 32;
   return (
@@ -68,9 +67,8 @@ function Waveform({ activo }) {
   );
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
+
 // COMPONENTE: RiskGauge circular
-// ══════════════════════════════════════════════════════════════════════════════
 function RiskGauge({ valor }) {
   const r = 44, circ = 2 * Math.PI * r;
   const offset = circ - (valor / 100) * circ;
@@ -95,9 +93,8 @@ function RiskGauge({ valor }) {
   );
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
+
 // PANTALLA: Splash
-// ══════════════════════════════════════════════════════════════════════════════
 function SplashScreen({ onContinuar }) {
   return (
     <div style={{
@@ -164,9 +161,8 @@ function SplashScreen({ onContinuar }) {
   );
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
+
 // PANTALLA: Panel Principal
-// ══════════════════════════════════════════════════════════════════════════════
 function PanelPrincipal({ onNav, historialCount }) {
   const fecha = new Date().toLocaleDateString("es-MX", { weekday: "long", day: "numeric", month: "short" }).toUpperCase();
   const cards = [
@@ -217,9 +213,8 @@ function PanelPrincipal({ onNav, historialCount }) {
   );
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
+
 // PANTALLA: Monitoreo
-// ══════════════════════════════════════════════════════════════════════════════
 function Monitoreo({ onGuardar }) {
   const [grabando, setGrabando]         = useState(false);
   const [segundos, setSegundos]         = useState(0);
@@ -253,7 +248,7 @@ function Monitoreo({ onGuardar }) {
     try {
       const formData = new FormData();
       formData.append("audio", blob, "segmento.mp4");
-      const res = await fetch(`${BACKEND_URL}/analyze/`, {
+      const res = await fetch(`${BACKEND_URL}/analyze_audio/`, {
         method: "POST", body: formData
       });
       if (!res.ok) throw new Error(`Error ${res.status}`);
@@ -449,9 +444,8 @@ function Monitoreo({ onGuardar }) {
   );
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
+
 // PANTALLA: Historial
-// ══════════════════════════════════════════════════════════════════════════════
 function Historial({ lista, onLimpiar }) {
   return (
     <div style={{ animation: "fadeIn 0.4s ease both", paddingBottom: 100 }}>
@@ -515,9 +509,8 @@ function Historial({ lista, onLimpiar }) {
   );
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
+
 // PANTALLA: Configuración
-// ══════════════════════════════════════════════════════════════════════════════
 function Configuracion({ config, onChange }) {
   const items = [
     { key: "alertas", icon: "🔔", color: C.verde,   label: "Activar alertas sonoras" },
@@ -540,7 +533,7 @@ function Configuracion({ config, onChange }) {
               width: 44, height: 44, borderRadius: 12,
               background: `${C.morado}18`, display: "flex",
               alignItems: "center", justifyContent: "center", fontSize: 20
-            }}>📊</div>
+            }}></div>
             <div>
               <p style={{ fontWeight: 700, fontSize: 14, color: C.azulOscuro }}>Cambiar umbral de detección</p>
               <p style={{ fontSize: 13, color: C.morado, fontWeight: 700 }}>{config.umbral} %</p>
@@ -605,9 +598,8 @@ function Configuracion({ config, onChange }) {
   );
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
+
 // APP PRINCIPAL
-// ══════════════════════════════════════════════════════════════════════════════
 export default function App() {
   const [pantalla, setPantalla] = useState("splash");
   const [navActiva, setNavActiva] = useState("inicio");
