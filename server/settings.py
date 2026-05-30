@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-ax3#p(@+c!^82uf=f44*7nq@bp^qh_0f6ddv%5y8em!jash^m!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["vishing-call-detection-server.onrender.com"]
+ALLOWED_HOSTS = [
+    "vishing-call-detection-server.onrender.com",
+    "localhost",  ## permite conexiones desde servidor local
+    "127.0.0.1"]  ## # permite conexiones desde servidor local (IPv4)
+        
 
 
 # Application definition
@@ -37,10 +41,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',   # librería para habilitar CORS en Django
     'core',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',  # # debe ir primero para interceptar todas las peticiones
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -121,3 +127,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+CORS_ALLOW_ALL_ORIGINS = True  # Permite peticiones HTTP desde cualquier origen (frontend web, app móvil, etc.)
